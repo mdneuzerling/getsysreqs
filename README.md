@@ -2,6 +2,7 @@
 # getsysreqs
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/mdneuzerling/getsysreqs/workflows/R-CMD-check/badge.svg)](https://github.com/mdneuzerling/getsysreqs/actions)
 <!-- badges: end -->
 
 Determine system requirements from R packages using [the RStudio Package Manager](https://packagemanager.rstudio.com/__api__/swagger/index.html). Query with either a list of packages, or an `renv` lockfile. If using an `renv`  lockfile, only CRAN packages will be used.
