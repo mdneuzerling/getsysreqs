@@ -1,34 +1,8 @@
-#' Retrieve a list of system dependencies for the given packages
+#' Query the public RStudio Package
 #'
 #' @details This queries the RStudio Package Manager API
 #' (\url{https://packagemanager.rstudio.com/__api__/swagger/index.html}).
 #' This API may change in the future.
-#'
-#' @inheritParams get_sysreqs_json
-#'
-#' @return A character vector of required packages
-#' @export
-#'
-#' @examples \dontrun{
-#' get_sysreqs("tidyverse", distribution = "centos")
-#' get_sysreqs(
-#'   c("plumber", "rmarkdown"),
-#'   distribution = "ubuntu",
-#'   release = "20.04"
-#' )
-#' }
-get_sysreqs <- function(packages,
-                        distribution = "ubuntu",
-                        release = NULL) {
-  if (length(packages) == 0) {
-    return(c())
-  }
-  content <- get_sysreqs_json(packages, distribution, release)
-  required_packages <- content$requirements$requirements$packages
-  unique(Reduce(c, required_packages))
-}
-
-#' Query the public RStudio Package
 #'
 #' @param packages Character vector of packages. Alternatively, the file path of
 #'   an `renv` lockfile, or directory containing `renv.lock`. In this case, the
@@ -72,6 +46,34 @@ get_sysreqs_json <- function(packages,
     stop(error_message)
   }
   jsonlite::fromJSON(httr::content(response, "text"))
+}
+
+#' Retrieve a list of system dependencies for the given packages
+#'
+#' @inherit get_sysreqs_json details
+#'
+#' @inheritParams get_sysreqs_json
+#'
+#' @return A character vector of required packages
+#' @export
+#'
+#' @examples \dontrun{
+#' get_sysreqs("tidyverse", distribution = "centos")
+#' get_sysreqs(
+#'   c("plumber", "rmarkdown"),
+#'   distribution = "ubuntu",
+#'   release = "20.04"
+#' )
+#' }
+get_sysreqs <- function(packages,
+                        distribution = "ubuntu",
+                        release = NULL) {
+  if (length(packages) == 0) {
+    return(c())
+  }
+  content <- get_sysreqs_json(packages, distribution, release)
+  required_packages <- content$requirements$requirements$packages
+  unique(Reduce(c, required_packages))
 }
 
 #' Interpret argument as a list of packages
