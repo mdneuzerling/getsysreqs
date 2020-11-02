@@ -12,7 +12,7 @@ Determine system requirements from R packages using [the RStudio Package Manager
 You can install the development version of `sysreqs` from Github with:
 
 ``` r
-remotes::install_github("getsysreqs")
+remotes::install_github("mdneuzerling/getsysreqs")
 ```
 
 ## Example
